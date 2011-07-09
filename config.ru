@@ -1,2 +1,2 @@
-require './stripolis'
-run Stripolis
+require './app'
+run App
