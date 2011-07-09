@@ -1,0 +1,2 @@
+require './stripolis'
+run Stripolis
