@@ -18,7 +18,7 @@ Feature: Log-in
     And I fill in "password" with "bad password"
     And I press "Login"
     Then I should see "Simply enter the credentials you signed up with."
-    And I should see "Couldn't log you in as 'quire@example.com'"
+    And I should see "Couldn't log you in as 'beatrice@hell.com'
   
   Scenario: Bad email
     Given I am the registered member "beatrice"
