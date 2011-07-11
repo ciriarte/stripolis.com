@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require './models/user.rb'
 
 module Sinatra
   module SessionAuth
@@ -15,6 +16,10 @@ module Sinatra
       def logout!
         session[:authorized] = false
       end
+
+      def current_user
+        session[:user]
+      end
     end
 
     def self.registered(app)
@@ -24,25 +29,18 @@ module Sinatra
       app.set :session_secret, "dirty_secret"
 
       app.get '/login' do
-        "<html>" +
-        "<head><title>Login</title></head>" +
-        "<body>" +
-        "<form method='POST' action='/login'>" +
-        "<input type='text' name='email'>" +
-        "<input type='text' name='pass'>" +
-        "<input type='submit' />" +
-        "</form>" +
-        "</body>" +
-        "</html>"
+        slim :login, :locals => {:page_title => 'Stripolis - Login'}
       end
 
       app.post '/login' do
-        if params[:email] == options.email && params[:pass] == options.password
+        user = User.get(params[:email])
+        if user.nil? or params[:password] == user.password
           session[:authorized] = true
+          session[:user] = user
           redirect '/'
         else
           session[:authorized] = false
-          redirect '/login'
+          redirect 'login/'
         end
       end
     end

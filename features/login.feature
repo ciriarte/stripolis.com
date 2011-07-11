@@ -9,7 +9,7 @@ Feature: Log-in
     When I fill in "email" with "beatrice@hell.com"
     And I fill in "password" with "dante"
     And I press "Login"
-    Then I should see "The Stage"
+    Then I should see "The Stage" in the title
 
   Scenario: Bad password
     Given I am the registered member "beatrice"

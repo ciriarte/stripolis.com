@@ -1,0 +1,11 @@
+div class="login"
+  == render 'slim', :login
+div class="register"
+  form id="register" method="POST" action="/"
+    input id="firstname" type="text"
+    input id="lastname" type="text"
+    input id="email" type="text"
+    input id="email_confirmation" type="text"
+    select id="day"
+      - for day in 1..31
+        option value=[day] text=[day] 

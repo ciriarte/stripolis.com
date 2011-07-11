@@ -1,4 +1,6 @@
 require 'sinatra/base'
+require 'data_mapper'
+require 'slim'
 require './lib/stripolis/sessionauth'
 
 class App < Sinatra::Base
@@ -6,14 +8,14 @@ class App < Sinatra::Base
   set :app_file, __FILE__
   set :public, Proc.new { File.join(root, "public") }
   set :views, Proc.new { File.join(root, "views") }
-  set :email, 'beatrice@hell.com'
-  set :password, 'dante'
+  set :logging, true
 
   get '/' do
     if authorized?
-      "Welcome to Stripolis!"
+      puts current_user.inspect
+      slim :index, :locals => {:page_title => 'The Stage', :current_user => current_user}
     else
-      "Welcome. <a href='/login'>Please login</a>"
+      slim :register, :locals => {:page_title => 'Stripolis'}
     end
   end
 

@@ -1,4 +1,8 @@
 source 'http://rubygems.org'
 gem 'sinatra'
+gem 'capybara'
 gem 'mongrel', '>= 1.2.0.pre2'
 gem 'shotgun'
+gem 'data_mapper'
+gem 'dm-sqlite-adapter'
+gem 'slim'

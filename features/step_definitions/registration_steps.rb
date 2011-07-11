@@ -2,6 +2,6 @@ Given /^I am viewing '(.+)'$/ do |page|
   visit(page)
 end
 
-Then /^I should see '(.+)'$/ do |text|
-  response_body.should =~ Regexp.new(Regexp.escape(text))
+Then /^I should see '(.+)' in the title$/ do |text|
+  find(:xpath, '//html/body').should have_content(text)
 end
