@@ -33,14 +33,32 @@ module Sinatra
       end
 
       app.post '/login' do
+        cookie = request.cookies["rememberme"]
+        if cookie
+          user = User.get(cookie.to_s)
+          if user
+            session[:authorized] = true
+          end
+        else
+          pass
+        end
+      end
+
+      app.post '/login' do
+        response.set_cookie("rememberme", { :value => params[:email], :path => "/" } )
         user = User.get(params[:email])
-        if user.nil? or params[:password] == user.password
+        if !user.nil? and params[:password] == user.password
           session[:authorized] = true
           session[:user] = user
           redirect '/'
         else
           session[:authorized] = false
-          redirect 'login/'
+          if params[:email]
+            flash[:notice] = "Couldn't log you in as '" + params[:email] + "'"
+          else
+            flash[:notice] = "You must enter your email and password to log in"
+          end
+          redirect '/login'
         end
       end
     end

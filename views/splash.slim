@@ -10,5 +10,8 @@ html
     div id="container"
       div id="header"
         h1 Stripolis 
+        == render 'slim', :login_box
       div id="content"
+        | lorem ipsum
+      div id="sidebar"
         == yield

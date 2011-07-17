@@ -3,5 +3,9 @@ Given /^I am viewing '(.+)'$/ do |page|
 end
 
 Then /^I should see '(.+)' in the title$/ do |text|
-  find(:xpath, '//html/body').should have_content(text)
+  find('title').should have_content(text)
+end
+
+Then /^I should see a '(.+)' button$/ do |text|
+  find('#' + 'register').should have_button(text)
 end

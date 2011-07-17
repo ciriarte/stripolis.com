@@ -1,0 +1,34 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/layout";
+
+@import "blueprint";
+
+.two-column {
+  @include container;
+  background-color: #333333;
+  color: white;
+  #header, #footer {
+    @include column(24)
+  }
+  #content {
+    @include column(14, true)
+  }
+  #sidebar {
+    @include column(10)
+  }
+}
+
+#header {
+  h1 {
+    @include column(14, true)
+  }
+  #login {
+    @include column(10);
+    font-size: 10pt;
+  }
+}

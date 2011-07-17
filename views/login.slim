@@ -1,5 +1,15 @@
 form id="login" method="POST" action="/login"
-  input name="email"    type="text"
-  input name="password" type="text"
-  input name="login"    type="submit"
-
+  p
+    label for="email" Email:
+    input name="email"    type="text"
+  p
+    label for="password" Password:
+    input name="password" type="text"
+  p  
+    label for="rememberme" Remember me
+    input name="rememberme" type="checkbox"
+    input name="Sign Up"    type="submit"
+    a href="/recover" Forgot your password?
+  - if flash[:notice]
+      p class="feedback"
+        = flash[:notice] 

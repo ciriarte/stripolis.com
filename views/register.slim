@@ -1,11 +1,42 @@
-div class="login"
-  == render 'slim', :login
 div class="register"
   form id="register" method="POST" action="/"
-    input id="firstname" type="text"
-    input id="lastname" type="text"
-    input id="email" type="text"
-    input id="email_confirmation" type="text"
-    select id="day"
-      - for day in 1..31
-        option value=[day] text=[day] 
+    p
+      label for="firstname" First Name:
+      input id="firstname" type="text" class="text"
+    p
+      label for="lastname" Last Name:
+      input id="lastname" type="text" class="text"
+    p
+      label for="email" Your Email:
+      input id="email" type="text" class="text"
+    p
+      label for="email_confirmation" Confirm your Email:
+      input id="email_confirmation" type="text" class="text"
+    p
+      | Birthday:
+      select id="month"
+        option value="-1" Month:
+        option value="1" Jan
+        option value="2" Feb
+        option value="3" Mar
+        option value="4" Apr
+        option value="5" May
+        option value="6" Jun
+        option value="7" Jul
+        option value="8" Aug
+        option value="9" Sep
+        option value="10" Oct
+        option value="11" Nov
+        option value="12" Dec
+      select id="day"
+        option value="-1" Day:
+        - for day in 1..31
+          option value=[day] 
+            = day
+      select id="year"
+        option value="-1" Year:
+        - for year in Time.new.year.downto(Time.new.year - 110)
+          option value=[year]
+            = year
+    p
+      input id="signup" name="signup" type="submit" value="Sign Up" 
