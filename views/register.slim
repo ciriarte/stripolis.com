@@ -1,20 +1,29 @@
 div class="register"
-  form id="register" method="POST" action="/"
+  form id="register" method="POST" action="/register"
     p
-      label for="firstname" First Name:
-      input id="firstname" type="text" class="text"
+      label for="stage_name" Stage Name:
+      input id="stage_name" name="stage_name" type="text" class="text"
     p
-      label for="lastname" Last Name:
-      input id="lastname" type="text" class="text"
+      label for="first_name" First Name:
+      input id="first_name" name="first_name" type="text" class="text"
+    p
+      label for="last_name" Last Name:
+      input id="last_name" name="last_name" type="text" class="text"
     p
       label for="email" Your Email:
-      input id="email" type="text" class="text"
+      input id="email" name="email" type="text" class="text"
     p
       label for="email_confirmation" Confirm your Email:
-      input id="email_confirmation" type="text" class="text"
+      input id="email_confirmation" name="email_confirmation" type="text" class="text"
+    p
+      label for="password" Password:
+      input id="password" name="password" type="password" class="text"
+    p
+      label for="password_confirmation" Confirm your Password:
+      input id="password_confirmation" name="password_confirmation" type="password" class="text"
     p
       | Birthday:
-      select id="month"
+      select id="month" name="month"
         option value="-1" Month:
         option value="1" Jan
         option value="2" Feb
@@ -28,12 +37,12 @@ div class="register"
         option value="10" Oct
         option value="11" Nov
         option value="12" Dec
-      select id="day"
+      select id="day" name="day"
         option value="-1" Day:
         - for day in 1..31
           option value=[day] 
             = day
-      select id="year"
+      select id="year" name="year"
         option value="-1" Year:
         - for year in Time.new.year.downto(Time.new.year - 110)
           option value=[year]
