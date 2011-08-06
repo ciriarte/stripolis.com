@@ -1,9 +1,11 @@
-app_file = File.join(File.dirname(__FILE__), *%w[.. .. app.rb])
-require app_file
+ENV['RACK_ENV'] = 'test'
 
 require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
+
+app_file = File.join(File.dirname(__FILE__), *%w[.. .. app.rb])
+require app_file
 
 Capybara.app = App.new
 

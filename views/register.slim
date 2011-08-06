@@ -48,4 +48,9 @@ div class="register"
           option value=[year]
             = year
     p
-      input id="signup" name="signup" type="submit" value="Sign Up" 
+      input id="signup" name="signup" type="submit" value="Sign Up"
+    - if flash[:notice]
+      ul class="error"
+        - for notice in flash[:notice] do
+          li
+            = notice

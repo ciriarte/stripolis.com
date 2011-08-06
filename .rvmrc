@@ -1,0 +1,1 @@
+rvm 1.9.2-head@stripolis.com --with-openssl-dir=$rvm_path/usr --with-zlib-dir=$rvm_path/usr --create

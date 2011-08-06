@@ -43,3 +43,19 @@ When /^I click Sign Up$/ do
     click_link_or_button('signup')
   end
 end
+
+Then /^I should see '(.+)'$/ do |text|
+  within('#register') do
+    find('.error').should have_content(text)
+  end
+end
+
+When /^my birthday is tomorrow and I am (.+) years old$/ do |years|
+  tomorrow = Date.today().next_day()
+  dob = tomorrow - 365.25 * Integer(years)
+  within('#register') do
+    select(dob.year.to_s, :from => 'year')
+    select(dob.strftime('%b'), :from => 'month')
+    select(dob.day.to_s, :from => 'day')
+  end
+end

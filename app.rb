@@ -11,19 +11,21 @@ class App < Sinatra::Base
   set :views, Proc.new { File.join(root, "views") }
   set :logging, true
   set Slim::Engine.set_default_options :pretty => true
-  set :env, (ENV['RACK_ENV'] ? :production : :development)
+  set :env, (ENV['RACK_ENV'] ? ENV['RACK_ENV'].to_sym : :development)
   register Sinatra::SessionAuth
 
-  # If you want the logs displayed you have to do this before the call to setup
-  DataMapper::Logger.new($stdout, :debug)
-  configure :development do
-   #DataMapper.setup(:default, 'sqlite::memory:')
-    DataMapper.setup(:default, 'sqlite:///home/ciriarte/stripolis.com/database.db')
-
+  configure :test do
+    puts 'Running in test mode'
+    DataMapper.setup(:default, 'sqlite::memory:')
   end
 
-  configure :production do
-   DataMapper.setup(:default, 'sqlite:///home/ciriarte/stripolis.com/database.db')
+  configure :development do
+    # If you want the logs displayed you have to do this before the call to setup
+    DataMapper::Logger.new($stdout, :debug)
+
+    puts 'Running in development mode'
+    db_file = File.join(File.join('sqlite://', File.dirname(__FILE__), 'database.db'))
+    DataMapper.setup(:default, db_file)
   end
 
   DataMapper.finalize
@@ -31,7 +33,6 @@ class App < Sinatra::Base
   DataMapper.auto_upgrade!
 
   get '/' do
-    puts ENV['RACK_ENV'].to_sym
     if authorized?
       slim :index, :locals => {:page_title => 'The Stage', :current_user => current_user}
     else

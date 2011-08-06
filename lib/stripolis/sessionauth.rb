@@ -18,7 +18,6 @@ module Sinatra
       end
 
       def current_user
-        puts session[:user]
         User.get(session[:user])
       end
     end
@@ -50,13 +49,19 @@ module Sinatra
           :username   => params[:stage_name],
           :email      => params[:email],
           :password   => params[:password],
-          :firstname => params[:first_name],
-          :lastname  => params[:last_name],
-          :dob        => Date.civil(Integer(params[:year]),Integer(params[:month]),Integer(params[:day]))
+          :firstname  => params[:first_name],
+          :lastname   => params[:last_name],
+          :birthday   => Date.civil(Integer(params[:year]),Integer(params[:month]),Integer(params[:day]))
         )
-        user.save()
-        session[:authorized] = true
-        session[:user] = user.email
+
+        if user.save
+          session[:authorized] = true
+          session[:user] = user.email
+        else
+          user.errors.each do |e|
+            flash[:notice] = e
+          end
+        end
         redirect '/'
       end
 
